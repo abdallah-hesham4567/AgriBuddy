@@ -7,11 +7,6 @@ venv/
 __pycache__/
 *.pyc
 
-# ML models
-*.h5
-*.pt
-*.pth
-*.onnx
 
 # Data
 data/
