@@ -37,6 +37,8 @@ This project was developed as part of a sustainability-focused hackathon.
 
 ## 📂 Project Structure
 
+```
+
 AgriBuddy/
 ├── backend/
 │   ├── app.py
@@ -52,6 +54,10 @@ AgriBuddy/
 ├── .gitignore
 └── README.md
 
+````
+
+---
+
 ## 🖥️ Run the Project Locally
 
 ### Prerequisites
@@ -64,57 +70,77 @@ AgriBuddy/
 ### 1️⃣ Backend Setup
 
 Navigate to the backend folder:
-
+```bash
 cd backend
-
+````
 
 Create a virtual environment:
 
+```bash
 python -m venv .venv
-
+```
 
 Activate the virtual environment:
 
+**Windows (Command Prompt):**
+
+```bat
 .\.venv\Scripts\activate.bat
+```
 
+**Windows (PowerShell):**
 
+```powershell
 .\.venv\Scripts\Activate.ps1
-
-
+```
 
 Install dependencies:
 
+```bash
 pip install -r requirements.txt
-
+```
 
 Run the backend server:
 
+```bash
 python app.py
+```
 
+The backend will run at:
+
+```
+http://127.0.0.1:5000
+```
+
+---
 
 ### 2️⃣ Frontend Setup
 
 Navigate to the frontend folder:
 
+```bash
 cd frontend
-
+```
 
 Install dependencies:
 
+```bash
 npm install
-
+```
 
 Start the development server:
 
+```bash
 npm run dev
-
+```
 
 The frontend will run at:
 
+```
 http://localhost:5173
+```
 
-
-----------------------------
+---
 
 ## 🧪 Using the Application
 
@@ -140,5 +166,5 @@ By enabling early disease detection, AgriBuddy helps:
 * Prevent crop loss
 * Support more sustainable and environmentally friendly farming practices
 
-Just tell me 👌
 ```
+
