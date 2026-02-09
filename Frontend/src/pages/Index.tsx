@@ -11,7 +11,7 @@ import PredictionHistory, {
 import heroBg from "@/assets/hero-bg.jpg";
 
 
-const API_URL = "http://127.0.0.1:5000/predict";
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface PredictionResponse {
   prediction: string;
@@ -43,7 +43,7 @@ const Index = () => {
       const formData = new FormData();
       formData.append("image", selectedImage);
 
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_URL}/predict`, {
         method: "POST",
         body: formData,
       });
