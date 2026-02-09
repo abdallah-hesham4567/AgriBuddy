@@ -24,7 +24,6 @@ CLASS_NAMES = [
     "Common Scab",
     "Dry Rot",
     "Healthy Potatoes",
-    "Miscellaneous",
     "Pink Rot",
     "Soft Rot"
 ]
@@ -49,7 +48,7 @@ def load_model():
             nn.Dropout(0.2),
             nn.Linear(m.last_channel, 256),
             nn.ReLU(),
-            nn.Linear(256, 10)
+            nn.Linear(256, 9)
         )
 
         m.load_state_dict(
