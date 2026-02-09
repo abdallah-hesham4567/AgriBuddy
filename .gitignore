@@ -1,0 +1,25 @@
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# ML models
+*.h5
+*.pt
+*.pth
+*.onnx
+
+# Data
+data/
+datasets/
+models/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
