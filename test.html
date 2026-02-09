@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h3>Potato Disease Test</h3>
+  <input type="file" id="img">
+  <button onclick="send()">Predict</button>
+  <pre id="out"></pre>
+
+  <script>
+    async function send() {
+      const file = document.getElementById("img").files[0];
+      if (!file) {
+        alert("No file selected");
+        return;
+      }
+
+      const fd = new FormData();
+      fd.append("image", file);
+
+      const res = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        body: fd
+      });
+
+      document.getElementById("out").textContent =
+        JSON.stringify(await res.json(), null, 2);
+    }
+  </script>
+</body>
+</html>
