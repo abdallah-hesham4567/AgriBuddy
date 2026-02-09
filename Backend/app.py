@@ -5,6 +5,7 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 import torchvision.models as models
 from PIL import Image
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -12,24 +13,9 @@ CORS(app)
 # ================= DEVICE =================
 device = torch.device("cpu")
 
-# ================= MODEL =================
-model = models.mobilenet_v2(weights=None)
+# ================= GLOBAL MODEL (LAZY) =================
+model = None
 
-model.classifier = nn.Sequential(
-    nn.Dropout(0.2),
-    nn.Linear(model.last_channel, 256),
-    nn.ReLU(),
-    nn.Linear(256, 10)
-)
-
-model.load_state_dict(
-    torch.load("Potato_Model.pth", map_location=device)
-)
-
-model.to(device)
-model.eval()
-
-# ================= CLASSES =================
 CLASS_NAMES = [
     "Black Scurf",
     "Blackleg",
@@ -53,9 +39,38 @@ transform = transforms.Compose([
     )
 ])
 
+# ================= MODEL LOADER =================
+def load_model():
+    global model
+    if model is None:
+        print("🔄 Loading model...")
+        m = models.mobilenet_v2(weights=None)
+        m.classifier = nn.Sequential(
+            nn.Dropout(0.2),
+            nn.Linear(m.last_channel, 256),
+            nn.ReLU(),
+            nn.Linear(256, 10)
+        )
+
+        m.load_state_dict(
+            torch.load("Potato_Model.pth", map_location=device)
+        )
+
+        m.to(device)
+        m.eval()
+        model = m
+        print("✅ Model loaded")
+
 # ================= ROUTES =================
+
+@app.route("/")
+def health():
+    return {"status": "AgriBuddy backend running"}
+
 @app.route("/predict", methods=["POST"])
 def predict():
+    load_model()  # 🔥 model loads only when needed
+
     if "image" not in request.files:
         return jsonify({"error": "No image uploaded"}), 400
 
@@ -82,9 +97,7 @@ def predict():
 
     return jsonify(response)
 
+# ================= LOCAL RUN =================
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
-
-    
